@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import imgPrin from './moneyCrip.png';
 import Form from './components/Form';
 
+
 const Container = styled.div`
   max-width: 900px;
   margin: 0 auto;
