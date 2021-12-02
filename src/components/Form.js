@@ -27,7 +27,8 @@ const Button = styled.input`
 const Form = () => {
 
     // STATE del listado de criptomonedas
-    const [listcripto, keepCripto] = useState([]);
+    const [ listcripto, keepCripto] = useState([]);
+    const [ error, keepError] = useState(false); 
 
     const typeMoney = [
         {code: 'COL', name: 'Peso Colombiano'},
@@ -58,9 +59,27 @@ const Form = () => {
         queryAPI();
     },[]); // <--- dependencias vacias
 
+    // Cuando el usuairio hace el submit
+    const quoteCoin = (e) => {
+        e.preventDefault();
+
+        //Validar si ambos campos estan llenos
+        if(money == '' || criptoMoney == ''){
+            keepError(true);
+            return; 
+        }
+
+        keepError(false); 
+
+        // Pasar datos a componente principal
+
+    }
 
     return ( 
-        <form>
+        <form
+            onSubmit={quoteCoin}
+        >
+            {error ? <p className="error">Please select all fields</p> : null}
 
             <SelectMoney />
             <SelecCripto />

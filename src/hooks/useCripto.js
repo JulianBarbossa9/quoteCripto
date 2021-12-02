@@ -36,9 +36,9 @@ const useCripto = (label, stateInitial, typeMoneyCripto) => {
                 value={state}
             >
                 <option value="">--Select--</option>
-                {/* {typeMoney.map(type => (
-                    <option key={type.code} value={type.code} >{type.name}</option>
-                ))} */}
+                {typeMoneyCripto.map(typeCripto => (
+                    <option key={typeCripto.CoinInfo.Id} value={typeCripto.CoinInfo.Name} >{typeCripto.CoinInfo.FullName}</option>
+                ))}
             </Selector>
         </Fragment>
     );
