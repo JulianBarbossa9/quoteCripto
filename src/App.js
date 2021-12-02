@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import imgPrin from './moneyCrip.png';
 import Form from './components/Form';
@@ -43,6 +43,16 @@ const Image = styled.img`
 `;
 
 function App() {
+
+  //Crear state
+  const [coin , keepCoin] = useState('');
+  const [criptoCoin , keepCriptoCoin]= useState('');
+
+  useEffect(()=> {
+    // Evitar la ejecuión la primera vez
+    if(coin === '') return; 
+
+  },[coin, criptoCoin]);// Los datos que van a cambiar cuando el susuario de el submit
   return (
      <Container>
        <div>
@@ -55,7 +65,8 @@ function App() {
        <div>
           <Heading>Cryptocurrency Quotation </Heading>
           <Form 
-          
+            keepCoin={keepCoin}
+            keepCriptoCoin={keepCriptoCoin}
           />
        </div>
      </Container>

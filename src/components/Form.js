@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import useMoney from '../hooks/useMoney';
 import useCripto from '../hooks/useCripto';
+import Error from './Error';
 import axios  from 'axios';
 
 
@@ -24,7 +25,7 @@ const Button = styled.input`
     }
 `;
 
-const Form = () => {
+const Form = ({keepCoin , keepCriptoCoin}) => {
 
     // STATE del listado de criptomonedas
     const [ listcripto, keepCripto] = useState([]);
@@ -71,7 +72,9 @@ const Form = () => {
 
         keepError(false); 
 
-        // Pasar datos a componente principal
+        // Pasar datos al componente principal
+        keepCoin(money);
+        keepCriptoCoin(criptoMoney);
 
     }
 
@@ -79,7 +82,7 @@ const Form = () => {
         <form
             onSubmit={quoteCoin}
         >
-            {error ? <p className="error">Please select all fields</p> : null}
+            {error ? <Error mensaje="Plesase fill all fields"/>: null}
 
             <SelectMoney />
             <SelecCripto />
