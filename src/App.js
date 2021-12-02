@@ -35,7 +35,7 @@ const Heading = styled.h1`
   `;
 
 const Image = styled.img`
-  max-width:650px;
+  max-width:550px;
   height: 550px;
   margin-top: 5rem;
   /* border: 2px solid red; */

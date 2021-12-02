@@ -23,12 +23,12 @@ const Selector = styled.select`
 `;
 
 // Hook == función
-const useMoney = (label, stateInitial, typeMoney) => {
+const useCripto = (label, stateInitial, typeMoneyCripto) => {
 
     //state de nuestro custom hook
     const [state, updateState] = useState(stateInitial);
 
-    const Seleccionar = () => (
+    const SeleCripto = () => (
         <Fragment>
             <Label>{label}</Label>
             <Selector
@@ -36,15 +36,15 @@ const useMoney = (label, stateInitial, typeMoney) => {
                 value={state}
             >
                 <option value="">--Select--</option>
-                {typeMoney.map(type => (
+                {/* {typeMoney.map(type => (
                     <option key={type.code} value={type.code} >{type.name}</option>
-                ))}
+                ))} */}
             </Selector>
         </Fragment>
     );
 
     //Retorna state, interfaz y modifica el state
-    return [ state, Seleccionar, updateState];
+    return [ state, SeleCripto, updateState];
 }
 
-export default useMoney;  
+export default useCripto;  
