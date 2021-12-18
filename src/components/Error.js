@@ -20,5 +20,4 @@ const Error = ({mensaje}) => {
     );
 }
  
-export default Error
-;
+export default Error;

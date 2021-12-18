@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import Form from './components/Form';
+import Quote from './components/Quote';
+import axios from 'axios'; // Se importa axios para hacer la consulta 
 import styled from '@emotion/styled';
 import imgPrin from './moneyCrip.png';
-import Form from './components/Form';
 
 
 const Container = styled.div`
@@ -32,7 +34,7 @@ const Heading = styled.h1`
     background-color: #66a2fe;
     display: block;
   }
-  `;
+`;
 
 const Image = styled.img`
   max-width:550px;
@@ -42,17 +44,32 @@ const Image = styled.img`
   
 `;
 
+
+
 function App() {
 
   //Crear state
-  const [coin , keepCoin] = useState('');
-  const [criptoCoin , keepCriptoCoin]= useState('');
+  const [ coin , keepCoin] = useState('');
+  const [ criptoCoin , keepCriptoCoin]= useState('');
+  const [ result, keepResult ] = useState ({});
 
   useEffect(()=> {
-    // Evitar la ejecuión la primera vez
-    if(coin === '') return; 
+    const queryCripto = async () => {
+      // Evitar la ejecuión la primera vez
+      if(coin === '') return; 
+      /*
+      * Consultar la api para obtener la información
+      */
+      const url =  `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${criptoCoin}&tsyms=${coin}`;
+
+      const result = await axios.get(url); 
+      keepResult(result.data.DISPLAY[criptoCoin][coin]); // <--- Acceder dinamicamente a la respuesta de la API 
+    } 
+
+    queryCripto(); 
 
   },[coin, criptoCoin]);// Los datos que van a cambiar cuando el susuario de el submit
+  
   return (
      <Container>
        <div>
@@ -69,6 +86,11 @@ function App() {
             keepCriptoCoin={keepCriptoCoin}
           />
        </div>
+       
+        <Quote 
+            result={result}
+        />
+      
      </Container>
   );
 }

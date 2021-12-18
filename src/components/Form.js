@@ -60,12 +60,12 @@ const Form = ({keepCoin , keepCriptoCoin}) => {
         queryAPI();
     },[]); // <--- dependencias vacias
 
-    // Cuando el usuairio hace el submit
+    // Cuando el usuario hace el submit
     const quoteCoin = (e) => {
         e.preventDefault();
 
-        //Validar si ambos campos estan llenos
-        if(money == '' || criptoMoney == ''){
+        //Validar si ambos campos o uno solo esta vacio, mande error al state keepError
+        if(money === '' || criptoMoney === ''){
             keepError(true);
             return; 
         }

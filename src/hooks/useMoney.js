@@ -35,9 +35,9 @@ const useMoney = (label, stateInitial, typeMoney) => {
                 onChange={e => updateState(e.target.value)}
                 value={state}
             >
-                <option value="">--Select--</option>
+                <option va lue="">--Select--</option>
                 {typeMoney.map(type => (
-                    <option key={type.code} value={type.code} >{type.name}</option>
+                    <option key={type.code} value={type.code}> {type.name} </option>
                 ))}
             </Selector>
         </Fragment>
