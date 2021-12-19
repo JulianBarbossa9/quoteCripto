@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Form from './components/Form';
 import Quote from './components/Quote';
+import Spiner from './components/Spiner';
 import axios from 'axios'; // Se importa axios para hacer la consulta 
 import styled from '@emotion/styled';
 import imgPrin from './moneyCrip.png';
@@ -52,6 +53,7 @@ function App() {
   const [ coin , keepCoin] = useState('');
   const [ criptoCoin , keepCriptoCoin]= useState('');
   const [ result, keepResult ] = useState ({});
+  const [ loading, keeepLoading ] = useState(false); 
 
   useEffect(()=> {
     const queryCripto = async () => {
@@ -62,13 +64,28 @@ function App() {
       */
       const url =  `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${criptoCoin}&tsyms=${coin}`;
 
-      const result = await axios.get(url); 
-      keepResult(result.data.DISPLAY[criptoCoin][coin]); // <--- Acceder dinamicamente a la respuesta de la API 
+      const result = await axios.get(url);    
+
+      // Mostrar el spiner de carga
+      keeepLoading(true); 
+
+      // Ocultar el spniner con un setTimeOut y mostrar el resultado
+      setTimeout(() => {
+          // Cambiar el estado de cargando
+          keeepLoading(false);
+
+          //Guardar la cotización 
+          keepResult(result.data.DISPLAY[criptoCoin][coin]); // <--- Acceder dinamicamente a la respuesta de la API 
+      },3000); // <--- Aca le digo que se demore 3 segundos
+
     } 
 
     queryCripto(); 
 
   },[coin, criptoCoin]);// Los datos que van a cambiar cuando el susuario de el submit
+
+  // Mostrar el spiner o el resultado
+  const showSpiner = (loading) ? <Spiner /> : <Quote result={result} />
   
   return (
      <Container>
@@ -87,9 +104,8 @@ function App() {
           />
        </div>
        
-        <Quote 
-            result={result}
-        />
+       {showSpiner}
+        
       
      </Container>
   );
